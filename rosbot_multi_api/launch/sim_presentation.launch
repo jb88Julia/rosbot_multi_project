@@ -1,0 +1,9 @@
+<!--
+    This starts a presentation for the project on simulated rosbots in Gazebo.
+    Assumes gazebo is spawned with three robots (run sim_nav_base.sh first) 
+-->
+
+<launch>
+    <rosparam file="$(find rosbot_multi_api)/config/coordinates.yaml" />
+    <node name="mission_control" pkg="rosbot_multi_api" type="mission_control.py" respawn="true" />
+</launch>

@@ -1,0 +1,40 @@
+<launch>
+  <!-- No namespace here as we will share this description.
+       Access with slash at the beginning -->
+
+  <arg name="robot1_init_pose" />
+  <arg name="robot2_init_pose" />
+  <arg name="robot3_init_pose" />
+
+
+  <!-- BEGIN ROBOT 1-->
+  <group ns="robot1">
+    <param name="tf_prefix" value="robot1_tf" />
+    <include file="$(find rosbot_multi_sim)/launch/one_robot.launch" >
+      <arg name="init_pose" value="$(arg robot1_init_pose)" />
+      <arg name="robot_name"  value="robot1" />
+      <arg name="tf_pre"  value="robot1_tf" />
+    </include>
+  </group>
+
+  <!-- BEGIN ROBOT 2-->
+  <group ns="robot2">
+    <param name="tf_prefix" value="robot2_tf" />
+    <include file="$(find rosbot_multi_sim)/launch/one_robot.launch" >
+      <arg name="init_pose" value="$(arg robot2_init_pose)" />
+      <arg name="robot_name"  value="robot2" />
+      <arg name="tf_pre"  value="robot3_tf" />
+    </include>
+  </group>
+
+  <!-- BEGIN ROBOT 3-->
+  <group ns="robot3">
+    <param name="tf_prefix" value="robot3_tf" />
+    <include file="$(find rosbot_multi_sim)/launch/one_robot.launch" >
+      <arg name="init_pose" value="$(arg robot3_init_pose)" />
+      <arg name="robot_name"  value="robot3" />
+      <arg name="tf_pre"  value="robot3_tf" />
+    </include>
+  </group>
+
+</launch>

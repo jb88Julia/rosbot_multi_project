@@ -1,0 +1,18 @@
+<launch>
+  <!-- <param name="/use_sim_time" value="true" />
+    -->
+  <arg name="robot1_init_pose" default="-x 3 -y 1 -z 0"/>
+  <arg name="robot2_init_pose" default="-x -4 -y 1 -z 0"/>
+  <arg name="robot3_init_pose" default="-x 1 -y -6 -z 0"/>
+
+   <!-- start world 
+  <node name="gazebo" pkg="gazebo_ros" type="gazebo"
+   args="$(find rosbot_gazebo)/worlds/rosbot.world" respawn="false" output="screen" /> -->
+
+  <!-- include our robots -->
+  <include file="$(find rosbot_multi_sim)/launch/robots.launch">
+    <arg name="robot1_init_pose" value="$(arg robot1_init_pose)" />
+    <arg name="robot2_init_pose" value="$(arg robot2_init_pose)"  />
+    <arg name="robot3_init_pose" value="$(arg robot3_init_pose)"  />
+  </include>
+</launch>

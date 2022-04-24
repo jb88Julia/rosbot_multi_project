@@ -1,0 +1,48 @@
+<launch>
+
+  <arg name="r1_initial_pose_x"  default="3"/>
+  <arg name="r1_initial_pose_y"  default="1"/>
+  <arg name="r1_initial_pose_z"  default="0"/>
+
+  <arg name="r2_initial_pose_x"  default="-4"/>
+  <arg name="r2_initial_pose_y"  default="1"/>
+  <arg name="r2_initial_pose_z"  default="0"/>
+
+  <arg name="r3_initial_pose_x"  default="1"/>
+  <arg name="r3_initial_pose_y"  default="-6"/>
+  <arg name="r3_initial_pose_z"  default="0"/>
+
+  <param name="/use_sim_time" value="true"/>
+
+  <arg name="map_file" default="$(find rosbot_multi_nav)/maps/maze_map.yaml"/>       <!-- path of map file -->
+  <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" respawn="true" />
+
+  <!-- Properties of each robot      -->
+    
+    <!-- AMCL      -->
+    <include file="$(find rosbot_multi_nav)/launch/amcl_robot1.launch" >
+      <arg name="initial_pose_x" value="$(arg r1_initial_pose_x)" />
+      <arg name="initial_pose_y" value="$(arg r1_initial_pose_y)" />
+      <arg name="initial_pose_z" value="$(arg r1_initial_pose_z)" />
+    </include>
+    <include file="$(find rosbot_multi_nav)/launch/amcl_robot2.launch" >
+      <arg name="initial_pose_x" value="$(arg r2_initial_pose_x)" />
+      <arg name="initial_pose_y" value="$(arg r2_initial_pose_y)" />
+      <arg name="initial_pose_z" value="$(arg r2_initial_pose_z)" />
+    </include>
+    <include file="$(find rosbot_multi_nav)/launch/amcl_robot3.launch" >
+      <arg name="initial_pose_x" value="$(arg r3_initial_pose_x)" />
+      <arg name="initial_pose_y" value="$(arg r3_initial_pose_y)" />
+      <arg name="initial_pose_z" value="$(arg r3_initial_pose_z)" />
+    </include>
+
+
+<!-- MOVE_BASE-->
+
+    <include file="$(find rosbot_multi_nav)/launch/move_base_1.launch" />
+    <include file="$(find rosbot_multi_nav)/launch/move_base_2.launch" />
+    <include file="$(find rosbot_multi_nav)/launch/move_base_3.launch" />
+
+  <node type="rviz" name="rviz" pkg="rviz" args="-d $(find rosbot_multi_nav)/config/map_config.rviz"  />
+
+</launch>
